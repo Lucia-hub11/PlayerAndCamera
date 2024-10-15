@@ -8,7 +8,11 @@ public class PlayerMovement : MonoBehaviour
     CharacterController _characterController;
     InputController _input;
     public float Speed=1;
+
+    public float JumpSpeed=10;
+
     private Vector3 _lastVelocity;
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -17,7 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+       
         Move();
+
     }
 
     private void Jump(ref Vector3 velocity)
@@ -27,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool ShouldJump()
     {
-        return _input.Jump;
+        return _input.Jump; 
     }
 
     private void Move()
@@ -35,19 +41,18 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(_input.Move.x, 0, _input.Move.y);
         //_characterController.SimpleMove(direction * Speed);
         Vector3 velocity = new Vector3();
-        velocity.x = direction.x * Speed;
+        velocity.x = direction.x * Speed ;
         velocity.y = _lastVelocity.y;
-        velocity.z = direction.z * Speed;
+        velocity.z = direction.z * Speed;        
 
         velocity.y = GetGravity();
         if (ShouldJump())
             Jump(ref velocity);
 
-
         _characterController.Move(velocity * Time.deltaTime);
 
-        //turn
-        if(direction.magnitude > 0)
+        //Turn
+        if (direction.magnitude > 0)
         {
             Vector3 target = transform.position + direction;
             transform.LookAt(target);

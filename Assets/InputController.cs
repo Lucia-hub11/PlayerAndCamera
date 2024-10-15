@@ -22,7 +22,7 @@ public class InputController : MonoBehaviour
         _move=input.Get<Vector2>();
     }
 
-    private void OnJump(InputValue input)
+    private void OnJump()
     {
         _jump = true;
     }
