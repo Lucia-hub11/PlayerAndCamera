@@ -20,15 +20,31 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
+    private void Jump(ref Vector3 velocity)
+    {
+        velocity.y = JumpSpeed;
+    }
+
+    private bool ShouldJump()
+    {
+        return _input.Jump;
+    }
+
     private void Move()
     {
         Vector3 direction = new Vector3(_input.Move.x, 0, _input.Move.y);
         //_characterController.SimpleMove(direction * Speed);
-        Vector3 velocity = direction * Speed * Time.deltaTime;
+        Vector3 velocity = new Vector3();
+        velocity.x = direction.x * Speed;
+        velocity.y = _lastVelocity.y;
+        velocity.z = direction.z * Speed;
 
         velocity.y = GetGravity();
+        if (ShouldJump())
+            Jump(ref velocity);
 
-        _characterController.Move(velocity);
+
+        _characterController.Move(velocity * Time.deltaTime);
 
         //turn
         if(direction.magnitude > 0)
