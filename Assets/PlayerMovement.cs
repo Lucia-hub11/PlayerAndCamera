@@ -6,10 +6,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     CharacterController _characterController;
+    InputController _input;
     public float Speed=1;
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _input = GetComponent<InputController>();
     }
 
     void Update()
@@ -19,6 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        _characterController.SimpleMove(Vector3.right * Speed);
+        Vector3 direction = new Vector3(_input.Move.x, 0, _input.Move.y);
+        _characterController.SimpleMove(direction * Speed);
+
+        if(direction.magnitude > 0)
+        {
+            Vector3 target = transform.position + direction;
+            transform.LookAt(target);
+        }
     }
 }
