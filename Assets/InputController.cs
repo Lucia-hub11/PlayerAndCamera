@@ -9,15 +9,14 @@ public class InputController : MonoBehaviour
 
     public Vector2 Move => _move;
 
-    //mismo codigo pero mas extenso
-    //public Vector2 GetMove()
-    //{
-    //    return _move;
-    //}
-    
+    //same
+    public Vector2 GetMove()
+    {
+        return _move;
+    }
     private void OnMove(InputValue input)
     {
-        input.Get<Vector2>();
+        _move=input.Get<Vector2>();
     }
 
     private void Update()
