@@ -12,6 +12,9 @@ public class InputController : MonoBehaviour
     private bool _jump;
     public bool Jump => _jump;
 
+    private Vector2 _look;
+    public Vector2 Look => _look;
+
     //same
     public Vector2 GetMove()
     {
